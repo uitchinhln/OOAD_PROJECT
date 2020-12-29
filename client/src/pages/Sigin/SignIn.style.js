@@ -1,63 +1,140 @@
 import styled from 'styled-components';
-import { palette } from 'styled-theme';
+import {palette} from 'styled-theme';
 
 const BlaSignInStyleWrapper = styled.div`
     height: 100%;
     width: 100%;
+    background: #000000 url("https://cdn-app.kiotviet.vn/img/login-bg-update.png") no-repeat center bottom;
     background-size: cover;
-  
-    .blaLoginContentWrapper {
-        width: 350px;
-        height: 250px;
-        z-index: 10;
-        background: #ffffff46;
+    padding: 90px;
+        
+    .card0 {
+        box-shadow: 0px 4px 8px 0px #757575;
+        border-radius: 0px
     }
-  
-    .blaLoginContent {
-        margin: 30px 40px;
-        width: 350px;
-        
-        .blaLogoWrapper {
-            width: 100%;
-            display: flex;
-            margin-bottom: 30px;
-            justify-content: center;
-            flex-shrink: 0;
-            
-            span {
-                font-size: 24px;
-                font-weight: 300;
-                line-height: 1;
-                text-transform: uppercase;
-                color: ${palette('secondary', 2)};
-            }
+
+    .card2 {
+        margin: 0px 40px
+    }
+    
+    .logo {
+        width: 200px;
+        height: 100px;
+        margin-top: 20px;
+        margin-left: 35px
+    }
+    
+    .image {
+        width: 360px;
+        height: 280px
+    }
+    
+    .border-line {
+        border-right: 1px solid #EEEEEE
+    }
+    
+    .line {
+        height: 1px;
+        width: 40%;
+        background-color: #E0E0E0;
+        margin-top: 10px
+    }
+    
+    .or {
+        width: 20%;
+        font-weight: bold
+    }
+    
+    .text-sm {
+        font-size: 14px !important
+    }
+    
+    ::placeholder {
+        color: #BDBDBD;
+        opacity: 1;
+        font-weight: 300
+    }
+    
+    :-ms-input-placeholder {
+        color: #BDBDBD;
+        font-weight: 300
+    }
+    
+    ::-ms-input-placeholder {
+        color: #BDBDBD;
+        font-weight: 300
+    }
+    
+    input,
+    textarea {
+        padding: 10px 12px 10px 12px;
+        border: 1px solid lightgrey;
+        border-radius: 2px;
+        margin-bottom: 5px;
+        margin-top: 2px;
+        width: 100%;
+        box-sizing: border-box;
+        color: #2C3E50;
+        font-size: 14px;
+        letter-spacing: 1px
+    }
+    
+    input:focus,
+    textarea:focus {
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        border: 1px solid #304FFE;
+        outline-width: 0
+    }
+    
+    button:focus {
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        outline-width: 0
+    }
+    
+    a {
+        color: inherit;
+        cursor: pointer
+    }
+    
+    .btn-blue {
+        background-color: #1A237E;
+        width: 150px;
+        color: #fff;
+        border-radius: 2px;
+        height: 45px;
+    }
+    
+    .btn-blue:hover {
+        background-color: #000;
+        cursor: pointer
+    }
+    
+    .bg-blue {
+        color: #fff;
+        background-color: #1A237E
+    }
+    
+    @media screen and (max-width: 991px) {
+        .logo {
+            margin-left: 0px
         }
-          
-        .blaInputWrapper {
-            margin-bottom: 15px;
-        
-            &:last-of-type {
-                margin-bottom: 0;
-            }
-            
-            input {
-                background: #ffffff9f;
-                
-                &::-webkit-input-placeholder {
-                    color: ${palette('grayscale', 0)};
-                }
-                
-                &:-moz-placeholder {
-                    color: ${palette('grayscale', 0)};
-                }
-                
-                &::-moz-placeholder {
-                    color: ${palette('grayscale', 0)};
-                }
-                &:-ms-input-placeholder {
-                    color: ${palette('grayscale', 0)};
-                }
-            }
+    
+        .image {
+            width: 300px;
+            height: 220px
+        }
+    
+        .border-line {
+            border-right: none
+        }
+    
+        .card2 {
+            border-top: 1px solid #EEEEEE !important;
+            margin: 0px 15px
         }
     }
 `;

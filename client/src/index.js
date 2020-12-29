@@ -7,6 +7,7 @@ import store from "./redux/store";
 import AppProvider from "./core/containers/AppProvider";
 import Preloader from "./core/containers/Preloader";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'antd/dist/antd.css';
 
 ReactDOM.render(
   <Provider store={store}>
