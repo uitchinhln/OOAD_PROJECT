@@ -6,7 +6,9 @@ const Tab = ({active, billData, name, closable, onClick, style, onClose}) => {
 
     return (
         <TabWrapper className={(active ? "active" : "")} style={{...style}}>
-            {name}
+            <text onClick={onClick}>
+                {name}
+            </text>
             {closable ? (<span className="ooad-close-button" onClick={onClose}><CloseOutlined /></span>) : ""}
         </TabWrapper>
     )

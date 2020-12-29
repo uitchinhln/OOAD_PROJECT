@@ -1,18 +1,26 @@
 import styled from "styled-components";
 
 const TabWrapper = styled.div`
-  width: 130px;
+  padding: 0 7px;
+  min-width: 120px;
   height: 100%;
   line-height: 100%;
   background: #0077b4;
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-size: 16px;
   color: #acdaff;
   user-select: none;
   cursor: pointer;
+  
+  text {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
   &.active {
     background: #fff; 
@@ -34,8 +42,9 @@ const TabWrapper = styled.div`
   }
   
   .ooad-close-button {
-    margin-left: 5px;
-    margin-bottom: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
     &:hover {       
       color: #ff7474; 

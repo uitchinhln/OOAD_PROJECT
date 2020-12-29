@@ -3,6 +3,8 @@ import Tab from "./Tab"
 import {useDispatch, useSelector} from "react-redux";
 import actions from "../../redux/Bill/action";
 import agent from "../../core/api/restful";
+import {CloseOutlined} from "@ant-design/icons";
+import TabWrapper from "./TabHeader.style";
 
 const TabBar = ({style}) => {
     const bills = useSelector(state => state.Bill.bills);
@@ -23,13 +25,17 @@ const TabBar = ({style}) => {
 
     return (
         <div className="d-flex h-100 align-items-center" style={{...style}}>
-            {Object.values(bills).map((bill, index) => (
-                <Tab key={index} active={index==activating}
-                     name={bill.name} data={bill.items}
-                     closable={true} onClose={e => closeBill(index)}
-                     onClick={e => activeBill(index)}/>
-            ))}
-            <Tab name={"+"} closable={false} onClick={e => createBill()} style={{width: 50}}/>
+            <div className="d-flex h-100 align-items-center">
+                {Object.values(bills).map((bill, index) => (
+                    <Tab key={index} active={index==activating}
+                         name={bill.name} data={bill.items}
+                         closable={true} onClose={e => closeBill(index)}
+                         onClick={e => activeBill(index)}/>
+                ))}
+            </div>
+            <TabWrapper onClick={e => createBill()} style={{minWidth: 35, justifyContent: "center", padding: 0}}>
+                +
+            </TabWrapper>
         </div>
     )
 }

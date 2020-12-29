@@ -3,36 +3,38 @@ import actions from "./action";
 const initState = {
     bills: [{
         name: "Hóa đơn 1",
+        timeCreated: Date.now(),
         items: []
     }],
-    activeBill: 0
+    activeBill: 0,
+    nextBillId: 2
 }
 
 
 export default function authReducer(state = initState, action) {
     switch (action.type) {
         case actions.CREATE_BILL:
-            state.bills.push({
-                name: "Hóa đơn 2",
+            var bills = [...state.bills];
+            bills.push({
+                name: "Hóa đơn " + state.nextBillId,
+                timeCreated: Date.now(),
                 items: []
-            })
-            state.activeBill = state.bills.length-1;
-            return state;
+            });
+            return {bills: bills, activeBill: bills.length -1, nextBillId: state.nextBillId+1};
         case actions.CLOSE_BILL:
-            if (state.bills.length > 1) {
-                state.bills.splice(action.pos, 1);
-
-                if (state.activeBill >= state.bills.length) {
-                    state.activeBill = state.bills.length-1;
-                }
-
-                console.log(state.bills);
-                console.log(state.activeBill);
+            var bills = [...state.bills];
+            bills.splice(action.pos, 1);
+            if (bills.length < 1) {
+                bills.push({
+                    name: "Hóa đơn 1",
+                    timeCreated: Date.now(),
+                    items: []
+                });
+                state.nextBillId = 2;
             }
-            return state;
+            return {bills: bills, activeBill: Math.min(state.activeBill, bills.length-1), nextBillId: state.nextBillId};
         case actions.ACTIVE_BILL:
-            state.activeBill = action.pos;
-            return {...state};
+            return {bills: state.bills, activeBill: Math.min(action.pos, state.bills.length-1), nextBillId: state.nextBillId};
         default:
             return state;
     }
