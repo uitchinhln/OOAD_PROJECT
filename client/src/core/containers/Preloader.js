@@ -33,10 +33,11 @@ const Preloader = () => {
     useEffect(() => {
         const token = localStorage.getItem("id_token");
         if (token) {
-            agent.setToken(token);
-            dispatch({type: actions.CHECK_SESSION, payload: agent.Auth.current()});
-        } else {
-            dispatch({type: actions.NOT_LOGGED_IN});
+        //     agent.setToken(token);
+        //     dispatch({type: actions.CHECK_SESSION, payload: agent.Auth.current()});
+        // } else {
+        //     dispatch({type: actions.NOT_LOGGED_IN});
+            dispatch(actions.setLoggedIn(true));
         }
     }, [dispatch]);
 

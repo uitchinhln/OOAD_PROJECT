@@ -5,7 +5,8 @@ import store from "../store";
 
 export function* loginRequest() {
     yield takeEvery(authActions.LOGIN_REQUEST, function* ({payload}) {
-        if (payload && payload.status && payload.status === "SUCCESS" && payload.data) {
+        console.log(payload);
+        if (payload && payload.status && payload.status === 1 && payload.data) {
             localStorage.setItem("id_token", payload.data);
             store.dispatch(preloadActions.setLoggedIn(true));
             yield put({
@@ -13,7 +14,6 @@ export function* loginRequest() {
                 token: payload.data,
             });
         } else {
-            store.dispatch(preloadActions.setLoggedIn(true));
             yield put({
                 type: authActions.LOGIN_FAILURE
             });
@@ -21,8 +21,19 @@ export function* loginRequest() {
     });
 }
 
+export function* verifySessionRequest() {
+    yield takeEvery(preloadActions.CHECK_SESSION, function* ({payload}) {
+        console.log(payload);
+        yield put({
+            type: authActions.LOGIN_SUCCESS,
+            payload: payload,
+        });
+    });
+}
+
 export default function* rootSaga() {
     yield all([
         fork(loginRequest),
+        fork(verifySessionRequest),
     ]);
 }

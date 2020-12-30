@@ -3,8 +3,8 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = `https://site-poro.web.app/api/v1`;
-// const API_ROOT = `http://localhost:8080/api/v1`;
+//const API_ROOT = `https://site-poro.web.app/api/v1`;
+const API_ROOT = `http://localhost:8080/v1`;
 
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
@@ -33,13 +33,11 @@ const requests = { //.withCredentials()
 
 const Auth = {
     current: () =>
-        requests.get('/user'),
+        requests.get('/auth'),
     login: (username, password) =>
-        requests.post('/user/login', { user: { username, password } }),
-    register: (username, email, password) =>
-        requests.post('/user', { user: { username, email, password } }),
+        requests.post('/auth/login', { username, password }),
     save: user =>
-        requests.put('/user', { user })
+        requests.put('/auth', { user })
 };
 
 const Languagues = {

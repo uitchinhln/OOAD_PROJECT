@@ -1,5 +1,5 @@
 // const root = '/query'
-const syntaxes = 
+const syntaxes =
 {
     listStudentsInClass: `/list-students`,
     numberOfStudentsInClass: `/number-students`,
@@ -13,6 +13,7 @@ const syntaxes =
     remove: `/remove/:id`,
 
     login: `/login`,
+    verify: `/`,
 
     // Setup steps
     setup: {

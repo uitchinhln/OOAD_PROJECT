@@ -3,8 +3,8 @@ import { lazy } from "react";
 export const publicRoute = {
     SIGN_IN: {
         path: "/signin",
-        //component: lazy(() => import("../../../pages/Sigin/SignIn"))
-        component: lazy(() => import("../../../pages/Sale"))
+        component: lazy(() => import("../../../pages/Sigin/SignIn"))
+        //component: lazy(() => import("../../../pages/Sale"))
     }
 }
 

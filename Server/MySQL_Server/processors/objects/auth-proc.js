@@ -20,16 +20,22 @@ function doLogin(dbConnection, req, res, urlData)
 
         if (password.localeCompare(data[0].password) == 0)
         {
-            res.status(statusCodes.OK).json({status: loginStatus.LoginSuccessfully});
+            res.status(statusCodes.OK).json({status: loginStatus.LoginSuccessfully, data: "hihihihi"});
         }
-        else 
+        else
         {
             res.status(statusCodes.OK).json({status: loginStatus.WrongPassword});
         }
     });
 }
 
-module.exports = 
+function doVeri(dbConnection, req, res, urlData)
 {
-    DoLogin     : doLogin
+    console.log(urlData);
+}
+
+module.exports =
+{
+    DoLogin     : doLogin,
+    DoVeri      : doVeri
 }

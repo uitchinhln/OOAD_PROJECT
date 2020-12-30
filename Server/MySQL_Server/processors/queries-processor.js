@@ -19,7 +19,7 @@ function processListStudentsInClass(dbConnection, req, res, urlData)
 {
     if (urlData.classid === undefined) return null;
 
-    dbConnection.query(storage.Query_ListStudentsInClass(urlData.classid), (err, data, fields) => 
+    dbConnection.query(storage.Query_ListStudentsInClass(urlData.classid), (err, data, fields) =>
     {
         if (err) throw err;
         res.status(statusCodes.OK).json(data);
@@ -30,7 +30,7 @@ function processNumberOfStudentsInClass(dbConnection, req, res, urlData)
 {
     if (urlData.classid === undefined) return null;
 
-    dbConnection.query(storage.Query_GetNumberOfStudentsInClass(urlData.classid), (err, data, fields) => 
+    dbConnection.query(storage.Query_GetNumberOfStudentsInClass(urlData.classid), (err, data, fields) =>
     {
         if (err)
         {
@@ -101,6 +101,7 @@ function processTeacherQueries(app, dbConnection)
 function processAuthenticationQueries(app, dbConnection)
 {
     methods.AppPost(app, syntaxes.login, authProc.DoLogin, dbConnection);
+    //methods.AppPost(app, syntaxes.verify, authProc.DoVeri, dbConnection);
 }
 //*********************************************************
 
@@ -115,10 +116,10 @@ function processSetupQueries(app, subappList)
     app.get(syntaxes.setup.finish, (req, res) =>
     {
         setupProc.Finish(req, res, subappList);
-    });   
+    });
 }
 
-module.exports = 
+module.exports =
 {
     ProcessQuery: processQuery,
     ProcessStudentQueries: processStudentQueries,
