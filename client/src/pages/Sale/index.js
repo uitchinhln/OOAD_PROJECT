@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {FormattedMessage} from 'react-intl';
-import {Button, Input, Layout, Menu} from "antd";
+import {Button, Input, Layout, Menu, Row, Col, Select, InputNumber } from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import agent from "../../core/api/restful";
 import {Redirect, useLocation} from "react-router";
 import TabBar from "../../components/TabHeader";
 import {UserOutlined} from "@ant-design/icons";
+import CurrencyInput from 'react-currency-input';
 
 const { Header, Sider, Content, Footer } = Layout;
 const { Search } = Input;
+const { Option } = Select;
 
 const Sale = () => {
     const staffInfo = useSelector(state => state.Auth.data);
@@ -19,6 +21,14 @@ const Sale = () => {
     const onSearch = value => {
         console.log(value);
     }
+
+
+    const selectAfter = (
+        <Select defaultValue="1kVND" className="select-after">
+            <Option value="1kVND">.000 VND</Option>
+            <Option value="1VND">VND</Option>
+        </Select>
+    );
 
     return (
         <>
@@ -32,12 +42,9 @@ const Sale = () => {
                         <Content style={{background: "#fff"}}>
 
                         </Content>
-                        <Footer style={{background: "#ebebeb", height: 200}}>
-
-                        </Footer>
                     </Layout>
-                    <Sider className="flex-grow-1" width={420} style={{background:"#fff", padding: "15px 15px", fontSize: 16}}>
-                        <div style={{minHeight: "calc(100% - 150px)"}}>
+                    <Sider className="flex-grow-1" width="45%" style={{background:"#fff", padding: "15px 15px", fontSize: 16}}>
+                        <div>
                             <div className="d-flex justify-content-between">
                                 <div className="d-flex align-items-center">
                                     <UserOutlined />
@@ -47,56 +54,15 @@ const Sale = () => {
                                     {new Date(activeBill.timeCreated).toLocaleString('vi-VN')}
                                 </div>
                             </div>
-                            <div className="d-flex justify-content-between mt-3">
-                                <div className="d-flex align-items-center">
-                                    <FormattedMessage id="sale.price" defaultMessage="Tổng tiền sách"/>
-                                </div>
-                                <div style={{maxWidth: "50%"}}>
-                                    <text>0</text>
-                                </div>
-                            </div>
-                            <div className="d-flex justify-content-between mt-3">
-                                <div className="d-flex align-items-center">
-                                    <FormattedMessage id="sale.discount" defaultMessage="Giảm giá"/>
-                                </div>
-                                <div style={{maxWidth: "50%"}}>
-                                    <text>0</text>
-                                </div>
-                            </div>
-                            <div className="d-flex justify-content-between mt-3">
-                                <div className="d-flex align-items-center">
-                                    <FormattedMessage id="sale.total" defaultMessage="Khách cần trả"/>
-                                </div>
-                                <div style={{maxWidth: "50%"}}>
-                                    <text>0</text>
-                                </div>
-                            </div>
-                            {activeBill.items.length > 0 ? (
-                                <div className="d-flex justify-content-between mt-3">
-                                    <div className="d-flex align-items-center">
-                                        <FormattedMessage id="sale.cash" defaultMessage="Tiền khách đưa"/>
-                                    </div>
-                                    <div style={{maxWidth: "50%"}}>
-                                        <text>0</text>
-                                    </div>
-                                </div>
-                            ) : ""}
-                            <div className="d-flex justify-content-between mt-3">
-                                <div className="d-flex align-items-center">
-                                    <FormattedMessage id="sale.excess_cash" defaultMessage="Tiền thừa trả khách"/>
-                                </div>
-                                <div style={{maxWidth: "50%"}}>
-                                    <text>0</text>
-                                </div>
-                            </div>
                         </div>
-                        <div style={{minHeight: 150}}>
-                            <Button type="primary" className="w-100" style={{height: 90}}>
-                                <text style={{fontSize: 20}}>
-                                    <FormattedMessage id="sale.purchase" defaultMessage="Thanh toán"/>
-                                </text>
-                            </Button>
-                        </div>
+                        <Row gutter={[16, 16]}>
+                            <Col span={12}>
+                                <FormattedMessage id="sale.cash.title" defaultMessage="Tiền khách đưa"/>
+                                <Input addonAfter={selectAfter} defaultValue="0" size="large" style={{textAlign: "end"}}/>
+                            </Col>
+                            <Col span={12}>
+                            </Col>
+                        </Row>
                     </Sider>
                 </Layout>
             </Layout>

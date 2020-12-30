@@ -12,7 +12,7 @@ const responseBody = res => res.body;
 let token = null;
 const tokenPlugin = req => {
     if (token) {
-        //req.set('authorization', `${token}`);
+        req.set('authorization', `${token}`);
     }
 }
 

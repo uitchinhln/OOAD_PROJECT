@@ -38,6 +38,8 @@ const Preloader = () => {
         // } else {
         //     dispatch({type: actions.NOT_LOGGED_IN});
             dispatch(actions.setLoggedIn(true));
+        } else {
+            dispatch({type: actions.NOT_LOGGED_IN});
         }
     }, [dispatch]);
 
