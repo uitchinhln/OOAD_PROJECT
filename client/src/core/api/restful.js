@@ -40,6 +40,11 @@ const Auth = {
         requests.put('/auth', { user })
 };
 
+const Product = {
+    searchCompletion: (value) =>
+        requests.post('/product/search', { keyword: value })
+};
+
 const Languagues = {
     list: () =>
         requests.get('/locales'),
@@ -56,6 +61,7 @@ const Footer = {
 }
 
 export default {
+    Product,
     Auth,
     Languagues,
     Landing,

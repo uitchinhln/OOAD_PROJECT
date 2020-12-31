@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.5.3",
     "bootstrap": "^4.5.3",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "rc-queue-anim": "^1.8.5",
     "rc-scroll-anim": "^2.7.4",
     "rc-tween-one": "^2.7.3",
