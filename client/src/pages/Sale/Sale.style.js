@@ -3,13 +3,6 @@ import styled from "styled-components";
 const SalePageWrapper = styled.div`
   display: flex;
   height: 100%;
-
-  .denominations-btn {
-    width: 100%;
-    height: 100%;
-    font-weight: bold;
-    color: #54A4CE;
-  }
   
   .suggestion-btn {
     width: 100%;

@@ -1,11 +1,11 @@
 import actions from "./action";
 import "./BillClasses";
-import {BuyReceipt, HireReceipt, ImportReceipt, ReceiptType, ReturnReceipt} from "./BillClasses";
+import {BuyReceipt, HireReceipt, ImportReceipt, Receipt, ReceiptType, ReturnReceipt} from "./BillClasses";
 
 const initState = {
-    bills: [new BuyReceipt(1, 0)],
-    activeBill: 0,
-    nextBillId: 2
+    bills: [],
+    activeBill: -1,
+    nextBillId: 1
 }
 
 export default function authReducer(state = initState, action) {
@@ -34,17 +34,17 @@ export default function authReducer(state = initState, action) {
             bills = [...state.bills];
             bills.splice(action.pos, 1);
             if (bills.length < 1) {
-                bills.push(new BuyReceipt(1, employeeId));
-                state.nextBillId = 2;
+                state.activeBill = -1;
+                state.nextBillId = 1;
             }
             return {bills: bills, activeBill: Math.min(state.activeBill, bills.length-1), nextBillId: state.nextBillId};
 
         case actions.ACTIVE_BILL:
-            return {bills: state.bills, activeBill: Math.min(action.pos, state.bills.length-1), nextBillId: state.nextBillId};
+            return {bills: state.bills, activeBill: Math.min(action.pos, state.bills.length), nextBillId: state.nextBillId};
 
         case actions.UPDATE_BILL_PROP:
             bills = state.bills.map((bill, index) => {
-                if (index == state.activeBill) {
+                if (index == state.activeBill && bill.getReceiptType != ReceiptType.LOBBY) {
                     Object.entries(action.value).map(([key, value], index) => {
                         bill[key] = value;
                     })

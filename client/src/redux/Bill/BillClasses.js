@@ -1,8 +1,9 @@
 export const ReceiptType = {
-    BUY: 0,
-    HIRE: 1,
-    IMPORT: 2,
-    RETURN: 3
+    LOBBY: 0,
+    BUY: 1,
+    HIRE: 2,
+    IMPORT: 3,
+    RETURN: 4
 }
 
 export class Receipt {
@@ -27,6 +28,10 @@ export class Receipt {
     get employeeId() {
         return this.#employeeId;
     }
+
+    get getReceiptType() {
+        return ReceiptType.LOBBY;
+    }
 }
 
 export class BuyReceipt extends Receipt {
@@ -34,6 +39,10 @@ export class BuyReceipt extends Receipt {
 
     constructor(id, employeeId) {
         super(id, employeeId);
+    }
+
+    get getReceiptType() {
+        return ReceiptType.BUY;
     }
 }
 
@@ -45,6 +54,10 @@ export class HireReceipt extends Receipt {
     constructor(id, employeeId) {
         super(id, employeeId);
     }
+
+    get getReceiptType() {
+        return ReceiptType.HIRE;
+    }
 }
 
 export class ImportReceipt extends Receipt {
@@ -52,6 +65,10 @@ export class ImportReceipt extends Receipt {
 
     constructor(id, employeeId) {
         super(id, employeeId);
+    }
+
+    get getReceiptType() {
+        return ReceiptType.IMPORT;
     }
 }
 
@@ -62,6 +79,10 @@ export class ReturnReceipt extends Receipt {
 
     constructor(id, employeeId) {
         super(id, employeeId);
+    }
+
+    get getReceiptType() {
+        return ReceiptType.RETURN;
     }
 }
 
