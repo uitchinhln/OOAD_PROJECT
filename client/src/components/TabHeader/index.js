@@ -23,12 +23,14 @@ const TabBar = ({style}) => {
         dispatch({type: actions.CLOSE_BILL, pos: index});
     }
 
+
+
     return (
         <div className="d-flex h-100 align-items-center" style={{...style}}>
             <div className="d-flex h-100 align-items-center">
                 {Object.values(bills).map((bill, index) => (
                     <Tab key={index} active={index==activating}
-                         name={bill.name} data={bill.items}
+                         name={"Hóa đơn " + bill.Id} data={bill.bookIdList}
                          closable={true} onClose={e => closeBill(index)}
                          onClick={e => activeBill(index)}/>
                 ))}

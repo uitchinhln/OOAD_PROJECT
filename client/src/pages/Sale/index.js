@@ -26,18 +26,18 @@ const Sale = () => {
 
     useEffect(() => {
         var price = 0;
-        activeBill.items.forEach(value => {
+        activeBill.bookIdList.forEach(value => {
             price += parseInt(value['Price']);
         })
         setTotalPrice(price);
-    }, [activeBill]);
+    }, [activeBill.bookIdList]);
 
     const selectAfter = (
         <text>VND</text>
     );
 
     const addCashByDenomination = (value) => {
-        dispatch({type: actions.ADD_CASH, value: value});
+        dispatch({type: actions.UPDATE_BILL_PROP, value: {cashed: parseInt(value) + parseInt(activeBill.cashed)}});
     }
 
     const handleSearch = value => {
@@ -46,7 +46,7 @@ const Sale = () => {
     };
 
     const handleSelect = value => {
-        dispatch({type: actions.ADD_BOOK, value: value});
+        dispatch({type: actions.UPDATE_BILL_PROP, value: {bookIdList: [...activeBill.bookIdList, value]}});
     };
 
     const searchResult = (results) => {
@@ -60,7 +60,7 @@ const Sale = () => {
                             key: book['IDBook'],
                             value: bookName,
                             label: (
-                                <ResultWrapper className="d-flex h-100" onClick={e => handleSelect(book)}>
+                                <ResultWrapper key={idx} className="d-flex h-100" onClick={e => handleSelect(book)}>
                                     <div className="w-100 h-100 position-relative p-0">
                                         <span className="h-100">{bookName}</span>
                                         <div className="d-flex justify-content-between sh-book-tiny-description">
@@ -107,7 +107,7 @@ const Sale = () => {
                 <Layout style={{background: "#ebebeb"}}>
                     <Layout style={{marginRight: 10}}>
                         <Content style={{background: "#fff", padding: 5}}>
-                            {Object.values(activeBill.items).map((book, index) => (
+                            {Object.values(activeBill.bookIdList).map((book, index) => (
                                 <Row gutter={[2,2]} key={index}>
                                     <Col span={2}>{book["IDBook"]}</Col>
                                     <Col span={2}>{book["IDBook"]}</Col>
@@ -126,7 +126,7 @@ const Sale = () => {
                                         <text>{staffInfo ? staffInfo.name : "Lê Ngọc Chính"}</text>
                                     </div>
                                     <div style={{maxWidth: "50%"}}>
-                                        {new Date(activeBill.timeCreated).toLocaleString('vi-VN')}
+                                        {new Date(activeBill.dateCreate).toLocaleString('vi-VN')}
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@ const Sale = () => {
                             <br/>
                             <FormattedMessage id="sale.cash.title" defaultMessage="Tiền khách đưa"/>
                             <NumbericInput addonAfter={selectAfter} defaultValue="0" size="large" style={{textAlign: "end"}}
-                                   value={activeBill.cashed} onChange={value => dispatch({type: actions.UPDATE_CASH, value: value})}/>
+                                   value={activeBill.cashed} onChange={value => dispatch({type: actions.UPDATE_BILL_PROP, value: {cashed: value ? value : 0}})}/>
 
                             <br/>
                             <br/>
