@@ -6,6 +6,7 @@ import NumbericInput from "../../NumbericInput/NumbericInput";
 import actions from "../../../redux/Bill/action";
 import MoneyPicker from "../../MoneyPicker";
 import {useDispatch, useSelector} from "react-redux";
+import {ReceiptItemStyle} from "./style";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -30,18 +31,30 @@ export default function BuyReceipt({bill}) {
         dispatch({type: actions.UPDATE_BILL_PROP, value: {cashed: parseInt(value) + parseInt(bill.cashed)}});
     }
 
+    const blockClassSelector = (index) => ((index + bill.bookIdList.length % 2 + 1) % 2 ? "black-block " : "white-block ")
+
+    const reverseFormatNumber = (val, locale) => {
+        let group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '');
+        let decimal = new Intl.NumberFormat(locale).format(1.1).replace(/1/g, '');
+        let reversedVal = val.replace(new RegExp('\\' + group, 'g'), '');
+        reversedVal = reversedVal.replace(new RegExp('\\' + decimal, 'g'), '.');
+        return Number.isNaN(reversedVal)?0:reversedVal;
+    }
+
     return (
         <Layout style={{background: "#ebebeb"}}>
             <Layout style={{marginRight: 10}}>
                 <Content style={{background: "#fff", padding: 5}}>
                     {Object.values(bill.bookIdList).map((book, index) => (
-                        <Row gutter={[2,2]} key={index}>
-                            <Col span={2}>{book["IDBook"]}</Col>
-                            <Col span={2}>{book["IDBook"]}</Col>
-                            <Col span={16}>{book["Name"]}</Col>
-                            <Col span={4}>{book["Price"]}</Col>
-                        </Row>
-                    ))}
+                        <ReceiptItemStyle className={blockClassSelector(index) + ""}>
+                            <Row gutter={[2,2]} key={index}>
+                                <Col span={2}>{index + 1}</Col>
+                                <Col span={2}>{book["IDBook"]}</Col>
+                                <Col span={16}>{book["Name"]}</Col>
+                                <Col span={4}>{book["Price"]}</Col>
+                            </Row>
+                        </ReceiptItemStyle>
+                    )).reverse()}
                 </Content>
             </Layout>
             <Sider className="flex-grow-1" width="450px" style={{background:"#fff", padding: "15px 15px", fontSize: 16}}>
@@ -60,12 +73,14 @@ export default function BuyReceipt({bill}) {
                     <br/>
                     <div>
                         <FormattedMessage id="sale.cash.title" defaultMessage="Tổng hóa đơn"/>
-                        <Input defaultValue="0" size="large" style={{textAlign: "end"}} disabled={true} value={totalPrice}/>
+                        <NumbericInput addonAfter={selectAfter} defaultValue="0" size="large" style={{textAlign: "end"}} readOnly={true}
+                               value={Intl.NumberFormat('vi-VN').format(totalPrice)}/>
                     </div>
                     <br/>
                     <FormattedMessage id="sale.cash.title" defaultMessage="Tiền khách đưa"/>
                     <NumbericInput addonAfter={selectAfter} defaultValue="0" size="large" style={{textAlign: "end"}}
-                                   value={bill.cashed} onChange={value => dispatch({type: actions.UPDATE_BILL_PROP, value: {cashed: value ? value : 0}})}/>
+                                   value={bill.cashed}
+                                   onChange={value => dispatch({type: actions.UPDATE_BILL_PROP, value: {cashed: value ? value : 0}})}/>
 
                     <br/>
                     <br/>
@@ -74,7 +89,8 @@ export default function BuyReceipt({bill}) {
                     <br/>
                     <div>
                         <FormattedMessage id="sale.cash.title" defaultMessage="Tiền thừa trả khách"/>
-                        <Input defaultValue="0" size="large" style={{textAlign: "end"}} disabled={true} value={bill.cashed - totalPrice}/>
+                        <NumbericInput addonAfter={selectAfter} defaultValue="0" size="large" style={{textAlign: "end"}} readOnly={true}
+                               value={Intl.NumberFormat('vi-VN').format(Math.max(0, bill.cashed - totalPrice))}/>
                     </div>
                 </div>
                 <div style={{minHeight: 100}}>

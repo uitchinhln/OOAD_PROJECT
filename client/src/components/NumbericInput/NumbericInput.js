@@ -7,11 +7,15 @@ export default class NumericInput extends React.Component {
         const { value } = e.target;
         const reg = /^-?\d*(\.\d*)?$/;
         if (isNaN(value)) {
-            this.props.onChange(0);
+            if (this.props.onChange) {
+                this.props.onChange(0);
+            }
             return;
         }
         if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
-            this.props.onChange(value);
+            if (this.props.onChange) {
+                this.props.onChange(value);
+            }
         }
     };
 
@@ -22,7 +26,9 @@ export default class NumericInput extends React.Component {
         if (value.toString().charAt(value.length - 1) === '.' || value.toString() === '-') {
             valueTemp = value.toString().slice(0, -1);
         }
-        onChange(valueTemp.replace(/0*(\d+)/, '$1'));
+        if (onChange) {
+            onChange(valueTemp.replace(/0*(\d+)/, '$1'));
+        }
         if (onBlur) {
             onBlur();
         }
