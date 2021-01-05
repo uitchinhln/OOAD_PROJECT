@@ -32,7 +32,7 @@ const Sale = () => {
     };
 
     const handleSelect = value => {
-        dispatch({type: actions.UPDATE_BILL_PROP, value: {bookIdList: [...activeBill.bookIdList, value]}});
+        dispatch({type: actions.UPDATE_BILL_PROP, value: {books: [...activeBill.books, value]}});
     };
 
     const billRender = bill => {

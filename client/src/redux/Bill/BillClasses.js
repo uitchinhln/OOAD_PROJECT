@@ -10,7 +10,7 @@ export class Receipt {
     #id = 0;
     #employeeId = 0;
     dateCreate = Date.now();
-    bookIdList =  [];
+    books = [];
     total = 0;
     status = 0;
 

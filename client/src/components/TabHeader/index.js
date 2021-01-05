@@ -25,12 +25,12 @@ const TabBar = ({style, onNewBill}) => {
             <div className="d-flex h-100 align-items-center">
                 {Object.values(bills).map((bill, index) => (
                     <Tab key={index} active={index==activating}
-                         name={"Hóa đơn " + bill.Id} data={bill.bookIdList}
+                         name={"Hóa đơn " + bill.Id} data={bill.books}
                          closable={true} onClose={e => closeBill(index)}
                          onClick={e => activeBill(index)}/>
                 ))}
             </div>
-            <TabWrapper className={(activating >= bills.length || activating < 0 ? "active" : "")}
+            <TabWrapper className={(activating >= bills.length || activating < 0 ? "active" : " add-new-btn")}
                         onClick={e => onNewBill ? onNewBill() : null}
                         style={{minWidth: 50, justifyContent: "center", padding: 0}}>
                 <text style={{fontSize: 30, lineAlign: "center", marginBottom: 5}}>

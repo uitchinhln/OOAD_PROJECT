@@ -15,6 +15,15 @@ const TabWrapper = styled.div`
   user-select: none;
   cursor: pointer;
   
+  &.add-new-btn {
+    background: none;
+    color: white;
+    
+    &:hover {
+      background: #0077b4;    
+    }
+  }
+  
   text {
     height: 100%;
     display: flex;

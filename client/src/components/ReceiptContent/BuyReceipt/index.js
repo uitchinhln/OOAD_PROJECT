@@ -6,7 +6,7 @@ import NumbericInput from "../../NumbericInput/NumbericInput";
 import actions from "../../../redux/Bill/action";
 import MoneyPicker from "../../MoneyPicker";
 import {useDispatch, useSelector} from "react-redux";
-import {ReceiptItemStyle} from "./style";
+import ReceiptItem from "./ReceiptItem";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -17,11 +17,11 @@ export default function BuyReceipt({bill}) {
 
     useEffect(() => {
         var price = 0;
-        bill.bookIdList.forEach(value => {
+        bill.books.forEach(value => {
             price += parseInt(value['Price']);
         })
         setTotalPrice(price);
-    }, [bill.bookIdList]);
+    }, [bill.books]);
 
     const selectAfter = (
         <text>VND</text>
@@ -31,7 +31,7 @@ export default function BuyReceipt({bill}) {
         dispatch({type: actions.UPDATE_BILL_PROP, value: {cashed: parseInt(value) + parseInt(bill.cashed)}});
     }
 
-    const blockClassSelector = (index) => ((index + bill.bookIdList.length % 2 + 1) % 2 ? "black-block " : "white-block ")
+    const blockClassSelector = (index) => ((index + bill.books.length % 2 + 1) % 2 ? "black-block " : "white-block ")
 
     const reverseFormatNumber = (val, locale) => {
         let group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '');
@@ -43,21 +43,14 @@ export default function BuyReceipt({bill}) {
 
     return (
         <Layout style={{background: "#ebebeb"}}>
-            <Layout style={{marginRight: 10}}>
+            <Layout style={{marginRight: 5}}>
                 <Content style={{background: "#fff", padding: 5}}>
-                    {Object.values(bill.bookIdList).map((book, index) => (
-                        <ReceiptItemStyle className={blockClassSelector(index) + ""}>
-                            <Row gutter={[2,2]} key={index}>
-                                <Col span={2}>{index + 1}</Col>
-                                <Col span={2}>{book["IDBook"]}</Col>
-                                <Col span={16}>{book["Name"]}</Col>
-                                <Col span={4}>{book["Price"]}</Col>
-                            </Row>
-                        </ReceiptItemStyle>
+                    {Object.values(bill.books).map((book, index) => (
+                        <ReceiptItem index={index} book={book} className={blockClassSelector(index)}/>
                     )).reverse()}
                 </Content>
             </Layout>
-            <Sider className="flex-grow-1" width="450px" style={{background:"#fff", padding: "15px 15px", fontSize: 16}}>
+            <Sider className="flex-grow-1" width="415px" style={{background:"#fff", padding: "15px 15px", fontSize: 16}}>
                 <div style={{minHeight: "calc(100% - 100px)"}}>
                     <div>
                         <div className="d-flex justify-content-between">
@@ -73,13 +66,13 @@ export default function BuyReceipt({bill}) {
                     <br/>
                     <div>
                         <FormattedMessage id="sale.cash.title" defaultMessage="Tổng hóa đơn"/>
-                        <NumbericInput addonAfter={selectAfter} defaultValue="0" size="large" style={{textAlign: "end"}} readOnly={true}
+                        <NumbericInput addonAfter={selectAfter} defaultValue="0" size="middle" style={{textAlign: "end"}} readOnly={true}
                                value={Intl.NumberFormat('vi-VN').format(totalPrice)}/>
                     </div>
                     <br/>
                     <FormattedMessage id="sale.cash.title" defaultMessage="Tiền khách đưa"/>
-                    <NumbericInput addonAfter={selectAfter} defaultValue="0" size="large" style={{textAlign: "end"}}
-                                   value={bill.cashed}
+                    <NumbericInput addonAfter={selectAfter} defaultValue="0" size="middle" style={{textAlign: "end"}}
+                                   value={bill.cashed} toolTip={true} placeholder="Nhập số tiền khách đưa"
                                    onChange={value => dispatch({type: actions.UPDATE_BILL_PROP, value: {cashed: value ? value : 0}})}/>
 
                     <br/>
@@ -89,7 +82,7 @@ export default function BuyReceipt({bill}) {
                     <br/>
                     <div>
                         <FormattedMessage id="sale.cash.title" defaultMessage="Tiền thừa trả khách"/>
-                        <NumbericInput addonAfter={selectAfter} defaultValue="0" size="large" style={{textAlign: "end"}} readOnly={true}
+                        <NumbericInput addonAfter={selectAfter} defaultValue="0" size="middle" style={{textAlign: "end"}} readOnly={true}
                                value={Intl.NumberFormat('vi-VN').format(Math.max(0, bill.cashed - totalPrice))}/>
                     </div>
                 </div>
